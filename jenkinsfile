@@ -28,6 +28,15 @@
             }            
         }
 
+        stage('Test') {
+            steps {
+                script {
+                    // Running tests
+                    sh "dotnet test --no-restore --configuration Release"
+                }
+            }
+        }
+
 		stage('Publish'){
 			steps {
 				sh 'dotnet publish --no-restore --configuration Release --output .\\publish'
