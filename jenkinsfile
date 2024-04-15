@@ -1,0 +1,46 @@
+﻿pipeline {
+    agent any
+
+    // tools {
+    //     // Install the Maven version configured as "M3" and add it to the path.
+    //     maven "M3"
+    // }
+
+    stages {
+		stage('checkout'){
+			steps {
+				git branch: 'main'
+
+			}
+		}
+        stage('Build') {
+            steps {
+                // Get some code from a GitHub repository
+                // git 'https://github.com/jglick/simple-maven-project-with-tests.git'
+
+                // Run Maven on a Unix agent.
+                sh 'dotnet restore'
+
+				sh 'dotnet build --configuration Release'
+
+                // To run Maven on a Windows agent, use
+                // bat "mvn -Dmaven.test.failure.ignore=true clean package"
+            }            
+        }
+
+		stage('Publish'){
+			steps {
+				sh 'dotnet publish --no-restore -c Release -o out .\\publish'
+
+			}
+		}
+		
+    }
+
+	post {
+		success {
+			echo 'Build, pusblish successful'
+		}
+	}
+}
+
