@@ -9,7 +9,7 @@
     stages {
 		stage('checkout'){
 			steps {
-				git branch: 'main'
+				checkout scm
 
 			}
 		}
@@ -30,7 +30,7 @@
 
 		stage('Publish'){
 			steps {
-				sh 'dotnet publish --no-restore -c Release -o out .\\publish'
+				sh 'dotnet publish --no-restore --configuration Release --output .\\publish'
 
 			}
 		}
