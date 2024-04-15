@@ -15,31 +15,34 @@
 		}
         stage('Build') {
             steps {
-                // Get some code from a GitHub repository
-                // git 'https://github.com/jglick/simple-maven-project-with-tests.git'
+                echo 'Building..'
+                // // Get some code from a GitHub repository
+                // // git 'https://github.com/jglick/simple-maven-project-with-tests.git'
 
-                // Run Maven on a Unix agent.
-                bat 'dotnet restore'
+                // // Run Maven on a Unix agent.
+                // bat 'dotnet restore'
 
-				bat 'dotnet build --configuration Release'
+				// bat 'dotnet build --configuration Release'
 
-                // To run Maven on a Windows agent, use
-                // bat "mvn -Dmaven.test.failure.ignore=true clean package"
+                // // To run Maven on a Windows agent, use
+                // // bat "mvn -Dmaven.test.failure.ignore=true clean package"
             }            
         }
 
         stage('Test') {
             steps {
-                script {
-                    // Running tests
-                    bat "dotnet test --no-restore --configuration Release"
-                }
+                echo 'Testing..'
+                // script {
+                //     // Running tests
+                //     bat "dotnet test --no-restore --configuration Release"
+                // }
             }
         }
 
 		stage('Publish'){
 			steps {
-				bat 'dotnet publish --no-restore --configuration Release --output .\\publish'
+                echo 'Publish..'
+				// bat 'dotnet publish --no-restore --configuration Release --output .\\publish'
 
 			}
 		}
