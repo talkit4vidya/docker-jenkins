@@ -1,21 +1,32 @@
-﻿pipeline {
+pipeline {
     agent any
 
     stages {
-        stage('Build') {
-            steps {
-                echo 'Building..'
+
+        stage("Checking Out") {
+            echo "checking out..."
+            checkout scm
+
+
+        }
+
+        stage ("Docker Push"){
+            echo "Docker push"
+            dir("$WORKSPACE/docker") {
+                script {
+                    docker.withRegistry('', 'dockerhub')
+                    def image = docker.build('talkit4vidya/jenkins-proj01')
+                    image.push()
+                }
+
             }
         }
-        stage('Test') {
-            steps {
-                echo 'Testing..'
-            }
+    }
+
+    post {
+        always {
+            echo 'pushed successfully'
         }
-        stage('Deploy') {
-            steps {
-                echo 'Deploying....'
-            }
-        }
+
     }
 }
