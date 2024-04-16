@@ -5,7 +5,9 @@ pipeline {
 
         stage("Checking Out") {
             echo "checking out..."
-            checkout scm
+            steps {
+             checkout scm
+            }
 
 
         }
