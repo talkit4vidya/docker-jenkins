@@ -3,9 +3,9 @@ pipeline {
 
     stages {
 
-        stage("Checking Out") {
-            echo "checking out..."
+        stage("Checking Out") {            
             steps {
+             echo "checking out..."
              checkout scm
             }
 
@@ -13,9 +13,10 @@ pipeline {
         }
 
         stage ("Docker Push"){
-            echo "Docker push"
+            
             dir("$WORKSPACE/docker") {
                 script {
+                    echo "Docker push"
                     docker.withRegistry('', 'dockerhub')
                     def image = docker.build('talkit4vidya/jenkins-proj01')
                     image.push()
