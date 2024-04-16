@@ -14,16 +14,16 @@ pipeline {
 
 			}
 		}
-        stage('Build') {
+        stage('Docker Push') {
             steps {
                 echo 'Building..'
                 // Get some code from a GitHub repository
                 // git 'https://github.com/jglick/simple-maven-project-with-tests.git'
 
                 // Run Maven on a Unix agent.
-                sh 'dotnet restore'
+                echo 'Running in $WORKSPACE'
 
-				sh 'dotnet build --configuration Release'
+				
 
                 // To run Maven on a Windows agent, use
                 // bat "mvn -Dmaven.test.failure.ignore=true clean package"
