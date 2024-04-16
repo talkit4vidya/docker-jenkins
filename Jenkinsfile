@@ -13,12 +13,13 @@ pipeline {
         }
 
         stage ("Docker Push"){
-            
-            script {
-                echo "Docker push"
-                docker.withRegistry('', 'dockerhub')
-                def image = docker.build('talkit4vidya/jenkins-proj01')
-                image.push()
+            steps {
+                script {
+                    echo "Docker push"
+                    docker.withRegistry('', 'dockerhub')
+                    def image = docker.build('talkit4vidya/jenkins-proj01')
+                    image.push()
+                }
             }
 
            
